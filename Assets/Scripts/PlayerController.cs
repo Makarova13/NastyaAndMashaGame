@@ -22,8 +22,10 @@ public class PlayerController : MonoBehaviour
 
     private Creature player;
     private Vector3 movementDelta;
-    private Vector3 crawlDelta = new Vector3(0, 0.3f, 0);
-    private bool isCrawling = false;
+    private readonly Vector3 crawlDelta = new Vector3(0, 0.3f, 0);
+    private bool isCrawling;
+    private bool running;
+    private const int speedUpBy = 2;
 
     #endregion
 
@@ -50,19 +52,18 @@ public class PlayerController : MonoBehaviour
             gameUiController.TakeDamage(enemyGameObject, player.Weapon.Strength);
         }
     }
-
-    private IEnumerator MoveToTheEnemy(EnemyController enemyController)
+    public void OnChangeSpeed(InputAction.CallbackContext context)
     {
-        while (!CheckIfEnemyIsCloseEnough(enemyController))
+        if (!running)
         {
-            var delta = enemyController.transform.position - gameObject.transform.position + new Vector3(player.Weapon.Range.x, 0, player.Weapon.Range.z);
-            gameObject.transform.position += delta * Time.deltaTime * speed;
-
-            yield return new WaitForFixedUpdate();
+            speed *= speedUpBy;
+            running = true;
         }
-
-        player.Hit(enemyController.Enemy);
-        Debug.Log(enemyController.Enemy.Health);
+        else
+        {
+            speed /= speedUpBy;
+            running = false;
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -86,6 +87,20 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
+
+    private IEnumerator MoveToTheEnemy(EnemyController enemyController)
+    {
+        while (!CheckIfEnemyIsCloseEnough(enemyController))
+        {
+            var delta = enemyController.transform.position - gameObject.transform.position + new Vector3(player.Weapon.Range.x, 0, player.Weapon.Range.z);
+            gameObject.transform.position += delta * Time.deltaTime * speed;
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        player.Hit(enemyController.Enemy);
+        Debug.Log(enemyController.Enemy.Health);
+    }
 
     private bool CheckIfEnemyIsCloseEnough(EnemyController enemyController)
     {
