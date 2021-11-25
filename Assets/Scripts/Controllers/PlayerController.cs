@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : BaseCharacterController
 {
     #region serialized fields
 
@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
 
     #region fields
 
-    private Creature player;
     private Vector3 movementDelta;
     private readonly Vector3 crawlDelta = new Vector3(0, 0.3f, 0);
     private bool isCrawling;
@@ -31,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     public void Awake()
     {
-        player = new Creature(10, Die);
+        Creature = new Creature(10, Die);
     }
 
     public void FixedUpdate()
@@ -49,7 +48,7 @@ public class PlayerController : MonoBehaviour
         if (enemyController != null)
         {
             StartCoroutine(nameof(MoveToTheEnemy), enemyController);
-            gameUiController.TakeDamage(enemyGameObject, player.Weapon.Strength);
+            gameUiController.TakeDamage(enemyGameObject, Creature.Weapon.Strength);
         }
     }
     public void OnChangeSpeed(InputAction.CallbackContext context)
@@ -92,21 +91,21 @@ public class PlayerController : MonoBehaviour
     {
         while (!CheckIfEnemyIsCloseEnough(enemyController))
         {
-            var delta = enemyController.transform.position - gameObject.transform.position + new Vector3(player.Weapon.Range.x, 0, player.Weapon.Range.z);
+            var delta = enemyController.transform.position - gameObject.transform.position + new Vector3(Creature.Weapon.Range.x, 0, Creature.Weapon.Range.z);
             gameObject.transform.position += delta * Time.deltaTime * speed;
 
             yield return new WaitForFixedUpdate();
         }
 
-        player.Hit(enemyController.Enemy);
-        Debug.Log(enemyController.Enemy.Health);
+        Creature.Hit(enemyController.Creature);
+        Debug.Log(enemyController.Creature.Health);
     }
 
     private bool CheckIfEnemyIsCloseEnough(EnemyController enemyController)
     {
         return 
-            enemyController.transform.position.x - gameObject.transform.position.x <= enemyController.Enemy.Weapon.Range.x 
-            && enemyController.transform.position.z - gameObject.transform.position.z <= enemyController.Enemy.Weapon.Range.z;
+            enemyController.transform.position.x - gameObject.transform.position.x <= enemyController.Creature.Weapon.Range.x 
+            && enemyController.transform.position.z - gameObject.transform.position.z <= enemyController.Creature.Weapon.Range.z;
     }
 
     private GameObject FindClosestEnemy() // это на потом

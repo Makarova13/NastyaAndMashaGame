@@ -18,6 +18,8 @@ public class Creature
 
     public Weapon Weapon { get; private set; }
 
+    public Transform Transform { get; private set; }
+
     #endregion
 
     public Creature(int maxHealth, Action onDeath, Weapon weapon = null)
