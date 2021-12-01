@@ -27,6 +27,14 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    public Animator anim;
+
+    void Update()
+    {
+        anim.SetFloat("vertical", Input.GetAxis("Vertical"));
+        anim.SetFloat("horizontal", Input.GetAxis("Horizontal"));
+    }
+
     public void Awake()
     {
         player = new Creature(10, Die);
