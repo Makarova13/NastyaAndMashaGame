@@ -18,6 +18,10 @@ public class Creature
 
     public Weapon Weapon { get; private set; }
 
+    public int JumpHeight { get; private set; }
+
+    public int Speed { get; private set; }
+
     #endregion
 
     public Creature(int maxHealth, Action onDeath, Weapon weapon = null)
