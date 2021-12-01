@@ -13,9 +13,6 @@ public class PlayerController : BaseCharacterController
     [SerializeField]
     private float jumpHeight = 3;
 
-    [SerializeField]
-    private GameUiController gameUiController;
-
     #endregion
 
     #region fields
@@ -48,9 +45,9 @@ public class PlayerController : BaseCharacterController
         if (enemyController != null)
         {
             StartCoroutine(nameof(MoveToTheEnemy), enemyController);
-            gameUiController.TakeDamage(enemyGameObject, Creature.Weapon.Strength);
         }
     }
+
     public void OnChangeSpeed(InputAction.CallbackContext context)
     {
         if (!running)
@@ -108,7 +105,7 @@ public class PlayerController : BaseCharacterController
             && enemyController.transform.position.z - gameObject.transform.position.z <= enemyController.Creature.Weapon.Range.z;
     }
 
-    private GameObject FindClosestEnemy() // это на потом
+    private GameObject FindClosestEnemy()
     {
         var enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject closest = null;

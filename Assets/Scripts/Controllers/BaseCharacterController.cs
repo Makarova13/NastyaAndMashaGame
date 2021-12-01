@@ -1,11 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class BaseCharacterController : MonoBehaviour
 {
+    [SerializeField]
+    protected GameObject HealthBarPrefab;
+
+    protected HealthBar HealthBar { get; private set; }
+
     public Creature Creature { get; protected set; }
+
+    public void Start()
+    {
+        HealthBar = HealthBarPrefab.GetComponent<HealthBar>();
+        Creature.HealthChanged += HealthBar.OnHealthChanged;
+    }
 }

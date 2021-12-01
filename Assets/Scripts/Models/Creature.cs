@@ -7,14 +7,28 @@ public class Creature
     #region fields
 
     private readonly Action onDeath;
+    private int health;
 
     #endregion
 
     #region properties
 
+    public event Action<int, int> HealthChanged;
+
     public int MaxHealth { get; private set; }
 
-    public int Health { get; private set; }
+    public int Health
+    {
+        get
+        {
+            return health;
+        }
+        private set
+        {
+            HealthChanged?.Invoke(MaxHealth, health - value);
+            health = value;
+        }
+    }
 
     public Weapon Weapon { get; private set; }
 
