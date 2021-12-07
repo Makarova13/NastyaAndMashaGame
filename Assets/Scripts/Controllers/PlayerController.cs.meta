@@ -3,7 +3,9 @@ guid: a2fd36657e77552488a69801725e74b7
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - gameUiController: {instanceID: 0}
+  - anim: {fileID: 5866666021909216657, guid: fb99637032d06074fac387e49c2d893d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

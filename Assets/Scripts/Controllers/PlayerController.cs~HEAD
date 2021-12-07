@@ -22,8 +22,18 @@ public class PlayerController : BaseCharacterController
 
     #endregion
 
-    public Vector3 MovementDelta => Creature.Speed * Time.deltaTime * movementDelta.z * transform.forward;
+<<<<<<< HEAD:Assets/Scripts/Controllers/PlayerController.cs
+    public Vector3 MovementDelta => Creature.Speed * Time.deltaTime * movementDelta.z * transform.forward + Creature.Speed * Time.deltaTime * movementDelta.z * transform.up;
     public event Action<float> Turned;
+=======
+    public Animator anim;
+
+    void Update()
+    {
+        anim.SetFloat("vertical", movementDelta.z);
+        anim.SetFloat("horizontal", movementDelta.x);
+    }
+>>>>>>> 7322fd6fded53336e193635ee289b2a291f0444d:Assets/Scripts/PlayerController.cs
 
     public void Awake()
     {
@@ -33,7 +43,6 @@ public class PlayerController : BaseCharacterController
     public void FixedUpdate()
     {
         gameObject.transform.position += MovementDelta;
-        gameObject.transform.position += new Vector3(0, movementDelta.y * Time.deltaTime, 0);
         transform.Rotate(new Vector3(0, movementDelta.x, 0));
         Turned?.Invoke(movementDelta.x);
     }
