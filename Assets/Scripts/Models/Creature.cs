@@ -6,6 +6,7 @@ public class Creature
 {
     #region fields
 
+    private readonly Vector3 defaultVisionRange = new(3, 3, 3);
     private readonly Action onDeath;
     private int health;
 
@@ -34,14 +35,30 @@ public class Creature
 
     public Transform Transform { get; private set; }
 
+    public Vector3 VisionRange { get; private set; }
+
+    public int Speed { get; set; }
+
     #endregion
 
-    public Creature(int maxHealth, Action onDeath, Weapon weapon = null)
+    public Creature(int maxHealth, Action onDeath, int speed, Weapon weapon = null)
     {
         MaxHealth = maxHealth;
         Health = maxHealth;
         this.onDeath = onDeath;
-        Weapon = weapon ?? new Weapon();
+        Weapon = weapon ?? new Weapon(1, 0.3f);
+        VisionRange = defaultVisionRange;
+        Speed = speed;
+    }
+    
+    public Creature(int maxHealth, Action onDeath, int speed, Vector3 visionRange, Weapon weapon = null)
+    {
+        MaxHealth = maxHealth;
+        Health = maxHealth;
+        this.onDeath = onDeath;
+        Weapon = weapon ?? new Weapon(1, 0.3f);
+        VisionRange = visionRange;
+        Speed = speed;
     }
 
     public void Hit(Creature enemy)

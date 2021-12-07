@@ -8,9 +8,6 @@ public class PlayerController : BaseCharacterController
     #region serialized fields
 
     [SerializeField]
-    private float speed = 1;
-
-    [SerializeField]
     private float jumpHeight = 3;
 
     #endregion
@@ -27,12 +24,12 @@ public class PlayerController : BaseCharacterController
 
     public void Awake()
     {
-        Creature = new Creature(10, Die);
+        Creature = new Creature(10, Die, 2);
     }
 
     public void FixedUpdate()
     {
-        gameObject.transform.position += movementDelta * Time.deltaTime * speed;
+        gameObject.transform.position += movementDelta * Time.deltaTime * Creature.Speed;
     }
 
     #region actions
@@ -52,12 +49,12 @@ public class PlayerController : BaseCharacterController
     {
         if (!running)
         {
-            speed *= speedUpBy;
+            Creature.Speed *= speedUpBy;
             running = true;
         }
         else
         {
-            speed /= speedUpBy;
+            Creature.Speed /= speedUpBy;
             running = false;
         }
     }
@@ -89,7 +86,7 @@ public class PlayerController : BaseCharacterController
         while (!CheckIfEnemyIsCloseEnough(enemyController))
         {
             var delta = enemyController.transform.position - gameObject.transform.position + new Vector3(Creature.Weapon.Range.x, 0, Creature.Weapon.Range.z);
-            gameObject.transform.position += delta * Time.deltaTime * speed;
+            gameObject.transform.position += delta * Time.deltaTime * Creature.Speed;
 
             yield return new WaitForFixedUpdate();
         }
