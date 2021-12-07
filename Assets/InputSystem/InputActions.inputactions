@@ -777,15 +777,6 @@
             "id": "7295bbb4-cd30-4a5b-bcad-6166c7bdc691",
             "actions": [
                 {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "a84d4c96-f0cc-4e37-800f-8a2b3f07655e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Look",
                     "type": "PassThrough",
                     "id": "d4bf0cbe-22e1-497c-9823-c9049c99a427",
@@ -796,17 +787,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "5d762ae5-7397-45e3-a7bd-dd5038fa7754",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "1ce007b0-d28a-4827-ada9-fd987f64ff29",

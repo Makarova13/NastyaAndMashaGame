@@ -1,7 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class PlayerController : BaseCharacterController
 {
@@ -22,16 +22,19 @@ public class PlayerController : BaseCharacterController
 
     #endregion
 
+    public Vector3 MovementDelta => Creature.Speed * Time.deltaTime * movementDelta.z * transform.forward + Creature.Speed * Time.deltaTime * movementDelta.z * transform.up;
+    public event Action<float> Turned;
+
     public void Awake()
     {
         Creature = new Creature(10, Die, 2);
     }
 
-    [System.Obsolete]
     public void FixedUpdate()
     {
-        gameObject.transform.position += Creature.Speed * Time.deltaTime * movementDelta.z * transform.forward;
+        gameObject.transform.position += MovementDelta;
         transform.Rotate(new Vector3(0, movementDelta.x, 0));
+        Turned?.Invoke(movementDelta.x);
     }
 
     #region actions
@@ -80,7 +83,6 @@ public class PlayerController : BaseCharacterController
             isCrawling = false;
         }
     }
-
 
     #endregion
 
