@@ -31,8 +31,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        anim.SetFloat("vertical", Input.GetAxis("Vertical"));
-        anim.SetFloat("horizontal", Input.GetAxis("Horizontal"));
+        anim.SetFloat("vertical", movementDelta.z);
+        anim.SetFloat("horizontal", movementDelta.x);
     }
 
     public void Awake()
