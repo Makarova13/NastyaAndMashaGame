@@ -27,9 +27,11 @@ public class PlayerController : BaseCharacterController
         Creature = new Creature(10, Die, 2);
     }
 
+    [System.Obsolete]
     public void FixedUpdate()
     {
-        gameObject.transform.position += movementDelta * Time.deltaTime * Creature.Speed;
+        gameObject.transform.position += Creature.Speed * Time.deltaTime * movementDelta.z * transform.forward;
+        transform.Rotate(new Vector3(0, movementDelta.x, 0));
     }
 
     #region actions
@@ -78,6 +80,7 @@ public class PlayerController : BaseCharacterController
             isCrawling = false;
         }
     }
+
 
     #endregion
 
