@@ -30,7 +30,7 @@ public class PlayerController : BaseCharacterController
         Creature = new Creature(10, Die, 2);
     }
 
-    public void FixedUpdate()
+    public void Update()
     {
         gameObject.transform.position += MovementDelta;
         gameObject.transform.position += new Vector3(0, movementDelta.y * Time.deltaTime, 0);
