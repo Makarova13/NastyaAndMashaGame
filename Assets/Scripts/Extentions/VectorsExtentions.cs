@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Extentions
 {
-    public static class VectorsExtensions
+    public static class VectorsExtentions
     {
         public static bool AbsLessThan(this Vector3 vector1, Vector3 vector2)
         {
